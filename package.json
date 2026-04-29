@@ -3,7 +3,7 @@
   "version": "1.7.5",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "concurrently -n web,convex -c cyan,magenta \"next dev --turbopack\" \"bunx convex dev\"",
     "build": "bun run generate:template-code && next build",
     "start": "next start",
     "lint": "next lint",
@@ -99,6 +99,7 @@
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
     "@types/react-payment-inputs": "^1.1.4",
+    "concurrently": "^9.2.1",
     "eslint": "^8",
     "eslint-config-next": "15.1.7",
     "playwright": "^1.52.0",

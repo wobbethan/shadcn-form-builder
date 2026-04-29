@@ -3,7 +3,7 @@
 import { Sidebar, SidebarContent } from "@/components/ui/sidebar";
 
 import { useFormBuilderStore } from "@/stores/form-builder-store";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Settings2 } from "lucide-react";
 import {
   Collapsible,
   CollapsibleContent,
@@ -16,6 +16,25 @@ interface PropertySectionProps {
   title: string;
   children: ReactNode;
   index: number;
+}
+
+interface EmptySidebarStateProps {
+  title: string;
+  description: string;
+}
+
+function EmptySidebarState({ title, description }: EmptySidebarStateProps) {
+  return (
+    <div className="h-full min-h-[60vh] flex items-center justify-center p-4">
+      <div className="w-full max-w-xs rounded-lg bg-card text-card-foreground p-6 text-center ">
+        <div className="mx-auto mb-3 flex h-10 w-10 items-center justify-center rounded-md border bg-muted">
+          <Settings2 className="h-5 w-5 text-muted-foreground" />
+        </div>
+        <h3 className="text-sm font-medium">{title}</h3>
+        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
+      </div>
+    </div>
+  );
 }
 
 function PropertySection({ title, children, index }: PropertySectionProps) {
@@ -63,22 +82,20 @@ export function SidebarRight() {
 
   if (!selectedComponent) {
     sidebarContent = (
-      <div className="p-4">
-        <p className="text-sm text-muted-foreground">
-          Select a component to configure its properties
-        </p>
-      </div>
+      <EmptySidebarState
+        title="No Component Selected"
+        description="Select a component on the canvas to configure its properties."
+      />
     );
   } else {
     const componentSidebarOptions = getCoponentSidebarOptions(selectedComponent);
 
     if (!componentSidebarOptions) {
       sidebarContent = (
-        <div className="p-4">
-          <p className="text-sm text-muted-foreground">
-            No properties available for this component
-          </p>
-        </div>
+        <EmptySidebarState
+          title="No Properties"
+          description="This component does not expose configurable properties."
+        />
       );
     } else {
       const filteredPropertySections = PROPERTY_SECTIONS.filter((section) => {
