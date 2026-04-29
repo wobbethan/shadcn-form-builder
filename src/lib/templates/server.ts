@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-import { TEMPLATE_CATEGORIES } from "./constants";
+import { TEMPLATE_CATEGORIES, TEMPLATE_FALLBACK_SOURCE } from "./constants";
 import {
   TemplateCatalog,
   TemplateCatalogItem,
@@ -37,7 +37,9 @@ export async function getTemplateDefinition(
   category: string,
   key: string
 ): Promise<TemplateCatalogItem | null> {
-  const file = await readCategoryFile(category);
+  const file =
+    (await readCategoryFile(category)) ??
+    (await readCategoryFile(TEMPLATE_FALLBACK_SOURCE));
   if (!file) {
     return null;
   }
@@ -60,7 +62,9 @@ export async function getTemplatesCatalog(
 
   await Promise.all(
     categories.map(async (category) => {
-      const file = await readCategoryFile(category);
+      const file =
+        (await readCategoryFile(category)) ??
+        (await readCategoryFile(TEMPLATE_FALLBACK_SOURCE));
       if (!file) {
         return;
       }
@@ -69,6 +73,7 @@ export async function getTemplatesCatalog(
         ([formId, template]) => ({
           ...template,
           formId,
+          category,
         })
       );
 

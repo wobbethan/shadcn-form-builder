@@ -1,5 +1,8 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
-import { TEMPLATE_CATEGORIES } from "@/lib/templates/constants";
+import {
+  TEMPLATE_CATEGORIES,
+  TEMPLATE_FALLBACK_SOURCE,
+} from "@/lib/templates/constants";
 
 export type LoadedTemplate = {
   formId: string;
@@ -33,7 +36,7 @@ export function useLoadTemplates(
   options: UseLoadTemplatesOptions = {}
 ): UseLoadTemplatesReturn {
   const {
-    categories = TEMPLATE_CATEGORIES,
+    categories = [...TEMPLATE_CATEGORIES],
     retryAttempts = 3,
     retryDelay = 1000,
   } = options;
@@ -48,7 +51,6 @@ export function useLoadTemplates(
   const requestIdRef = useRef(0);
 
   const defaultCategories = useMemo(() => [...TEMPLATE_CATEGORIES], []);
-
   const defaultCategoriesKey = useMemo(
     () => JSON.stringify(defaultCategories),
     [defaultCategories]
@@ -63,7 +65,6 @@ export function useLoadTemplates(
 
   const normalizedCategories = useMemo(() => {
     const parsedCategories = JSON.parse(categoriesKey) as string[];
-
     const seen = new Set<string>();
     const deduped: string[] = [];
 
@@ -81,7 +82,29 @@ export function useLoadTemplates(
   const delay = (ms: number) =>
     new Promise((resolve) => setTimeout(resolve, ms));
 
-  // Helper function to load a single category with retry logic
+  const mapTemplatesFromFile = useCallback(
+    (templatesData: Record<string, any>, category: string): LoadedTemplate[] => {
+      const formIds = Object.keys(templatesData);
+      return formIds
+        .map((formId) => {
+          const template = templatesData[formId];
+          if (!template || typeof template !== "object") {
+            console.warn(`Invalid template data for ${formId} in ${category}`);
+            return null;
+          }
+          return {
+            ...template,
+            formId,
+            category,
+          };
+        })
+        .filter(Boolean) as LoadedTemplate[];
+    },
+    []
+  );
+
+  // Helper function to load a single category with retry logic.
+  // If category file doesn't exist yet, fallback to healthcare templates.
   const loadCategory = useCallback(
     async (
       category: string,
@@ -90,33 +113,31 @@ export function useLoadTemplates(
       try {
         const response = await fetch(`/templates/${category}.json`);
 
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        if (response.ok) {
+          const categoryData = await response.json();
+
+          if (!categoryData || typeof categoryData !== "object") {
+            throw new Error("Invalid JSON structure");
+          }
+
+          return mapTemplatesFromFile(categoryData, category);
         }
 
-        const categoryData = await response.json();
+        const fallbackResponse = await fetch(
+          `/templates/${TEMPLATE_FALLBACK_SOURCE}.json`
+        );
+        if (!fallbackResponse.ok) {
+          throw new Error(
+            `HTTP ${fallbackResponse.status}: ${fallbackResponse.statusText}`
+          );
+        }
 
-        if (!categoryData || typeof categoryData !== "object") {
+        const fallbackData = await fallbackResponse.json();
+        if (!fallbackData || typeof fallbackData !== "object") {
           throw new Error("Invalid JSON structure");
         }
 
-        const formIds = Object.keys(categoryData);
-        return formIds
-          .map((formId) => {
-            const template = categoryData[formId];
-            if (!template || typeof template !== "object") {
-              console.warn(
-                `Invalid template data for ${formId} in ${category}`
-              );
-              return null;
-            }
-            return {
-              ...template,
-              formId: formId,
-              category: category,
-            };
-          })
-          .filter(Boolean) as LoadedTemplate[];
+        return mapTemplatesFromFile(fallbackData, category);
       } catch (error) {
         const errorMessage =
           error instanceof Error ? error.message : "Unknown error";
@@ -135,7 +156,7 @@ export function useLoadTemplates(
         }
       }
     },
-    [retryAttempts, retryDelay]
+    [mapTemplatesFromFile, retryAttempts, retryDelay]
   );
 
   // Main loading function
@@ -147,14 +168,17 @@ export function useLoadTemplates(
       setIsLoading(true);
       setError(null);
 
-      // Load all categories in parallel for better performance
       const loadPromises = normalizedCategories.map(async (category) => {
         try {
           const templates = await loadCategory(category);
           return { category, templates, isError: false } as const;
         } catch (loadError) {
           console.error(`Failed to load category ${category}:`, loadError);
-          return { category, templates: [] as LoadedTemplate[], isError: true } as const;
+          return {
+            category,
+            templates: [] as LoadedTemplate[],
+            isError: true,
+          } as const;
         }
       });
 
@@ -169,7 +193,6 @@ export function useLoadTemplates(
 
       results.forEach(({ category, templates, isError }) => {
         nextTemplates[category] = templates;
-
         if (isError) {
           failedCategories.push(category);
         }

@@ -8,21 +8,16 @@ export type FormComponentTypes =
   | "textarea"
   | "number"
   | "email"
-  | "password"
   | "file"
   | "tel"
-  | "url"
   | "select"
-  | "native-select"
   | "checkbox"
   | "checkbox-group"
   | "radio"
   | "date"
   | "switch"
-  | "button"
   | "submit-button"
-  | "reset-button"
-  | "credit-card";
+  | "reset-button";
 export interface FormComponentModelInput {
   id: string;
   label: string;

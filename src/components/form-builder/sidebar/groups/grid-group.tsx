@@ -8,7 +8,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ViewportOverrideIndicator } from "@/components/form-builder/helpers/ViewportOverrideIndicator";
-import { ToggleGroupNav } from "@/components/form-builder/ui/toggle-group-nav";
 
 export function GridGroup() {
   const { updateComponent, selectedComponent, viewport } =
@@ -20,7 +19,6 @@ export function GridGroup() {
 
   let defaultValue = "auto";
   let defaultValueColStart = "auto";
-  let defaultValueVisible = "yes";
 
   defaultValue = selectedComponent.getField(
     "properties.style.colSpan",
@@ -30,10 +28,6 @@ export function GridGroup() {
     "properties.style.colStart",
     viewport
   );
-  defaultValueVisible = selectedComponent.getField(
-    "properties.style.visible",
-    viewport
-  ) || "yes";
 
 
   const handleChangeColSpan = (field: string, value: any) => {
@@ -44,37 +38,8 @@ export function GridGroup() {
     updateComponent(selectedComponent.id, field, value);
   };
 
-  const handleChangeVisible = (field: string, value: any) => {
-    updateComponent(selectedComponent.id, field, value);
-  };
-
-
-
   return (
     <>
-      <div className="grid grid-cols-2 gap-2 items-center">
-        <Label className="text-xs text-gray-400 flex-1 inline-block">
-          Visible
-        </Label>
-        <div className="flex flex-row items-center gap-2">
-          <ToggleGroupNav
-            name="visible"
-            items={[
-              { value: "yes", label: "yes" },
-              { value: "no", label: "no" },
-            ]}
-            defaultValue={defaultValueVisible}
-            onValueChange={(value) =>
-              handleChangeVisible("properties.style.visible", value)
-            }
-            className="w-full"
-          />
-          <ViewportOverrideIndicator
-            component={selectedComponent}
-            field="properties.style.visible"
-          />
-        </div>
-      </div>
       <div className="grid grid-cols-2 gap-2 items-center">
         <Label className="text-xs text-gray-400 flex-1 inline-block">
           Column Span

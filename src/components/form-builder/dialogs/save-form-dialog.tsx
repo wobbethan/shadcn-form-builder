@@ -1,26 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import GenerateCanvasGrid from "@/components/form-builder/canvas/generate-canvas-grid";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
-  DialogFooter,
+  DialogTrigger
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
@@ -29,24 +21,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Loader2,
-  FolderOpen,
-  Calendar,
-  User,
-  Eye,
-  FileText,
-  FileSearch,
-  Save,
-} from "lucide-react";
-import { useSavedForms } from "@/hooks/use-saved-forms";
-import { useFormBuilderStore } from "@/stores/form-builder-store";
-import { FormComponentModel } from "@/models/FormComponent";
-import GenerateCanvasGrid from "@/components/form-builder/canvas/generate-canvas-grid";
-import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useSaveForm } from "@/hooks/use-save-form";
+import { useSavedForms } from "@/hooks/use-saved-forms";
+import { cn } from "@/lib/utils";
+import { FormComponentModel } from "@/models/FormComponent";
+import { useFormBuilderStore } from "@/stores/form-builder-store";
+import {
+  FileSearch,
+  FileText,
+  FolderOpen,
+  Loader2,
+  Save
+} from "lucide-react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 interface SaveFormDialogProps {
@@ -57,7 +44,7 @@ interface SaveFormDialogProps {
 export function SaveFormDialog({ children, forceSave }: SaveFormDialogProps) {
   const [open, setOpen] = useState(false);
   const [selectedForm, setSelectedForm] = useState<any>(null);
-  const { userForms, isLoading } = useSavedForms();
+  const { forms, isLoading } = useSavedForms();
   const { updateComponents, updateFormTitle, updateMode, updateFormId, formTitle, formId } =
     useFormBuilderStore();
   const { saveCurrentForm, isSaving, canSave } = useSaveForm();
@@ -149,15 +136,15 @@ export function SaveFormDialog({ children, forceSave }: SaveFormDialogProps) {
           </DialogTitle>
         </DialogHeader>
 
-        <div className={cn("grid gap-0 flex-1", userForms.length !== 0  && "grid-cols-2")}>
+        <div className={cn("grid gap-0 flex-1", forms.length !== 0  && "grid-cols-2")}>
           {/* Left Panel - Form List */}
-          <ScrollArea className={cn("flex-1 ", userForms.length !== 0  && "border-r h-[478px]")}>
+          <ScrollArea className={cn("flex-1 ", forms.length !== 0  && "border-r h-[478px]")}>
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
                 <Loader2 className="h-6 w-6 animate-spin" />
                 <span className="ml-2">Loading saved forms...</span>
               </div>
-            ) : userForms.length === 0 ? (
+            ) : forms.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">
                 <FolderOpen className="h-12 w-12 mx-auto mb-4 opacity-50" />
                 <p>No saved forms found.</p>
@@ -174,7 +161,7 @@ export function SaveFormDialog({ children, forceSave }: SaveFormDialogProps) {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {userForms.map((form) => (
+                  {forms.map((form) => (
                     <TableRow
                       key={form._id}
                       onClick={() => handleSelectForm(form)}
@@ -197,7 +184,7 @@ export function SaveFormDialog({ children, forceSave }: SaveFormDialogProps) {
           </ScrollArea>
 
           {/* Right Panel - Preview */}
-          {userForms.length !== 0 && (
+          {forms.length !== 0 && (
           <div className="p-4 relative bg-dotted overflow-hidden h-[478px] ">
             {selectedForm ? (
               <>

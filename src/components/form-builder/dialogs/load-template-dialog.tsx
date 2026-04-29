@@ -4,23 +4,13 @@ import { useState } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
@@ -32,20 +22,17 @@ import {
 import {
   Loader2,
   FolderOpen,
-  Calendar,
-  User,
-  Eye,
   FileText,
   FileSearch,
   Folder,
   CornerLeftUp,
 } from "lucide-react";
-import { useSavedForms } from "@/hooks/use-saved-forms";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { FormComponentModel } from "@/models/FormComponent";
 import GenerateCanvasGrid from "@/components/form-builder/canvas/generate-canvas-grid";
 import { cn } from "@/lib/utils";
 import { useLoadTemplates } from "@/hooks/useLoadTemplates";
+import { TEMPLATE_CATEGORY_LABELS } from "@/lib/templates/constants";
 
 interface LoadTemplateDialogProps {
   children: React.ReactNode;
@@ -54,18 +41,14 @@ interface LoadTemplateDialogProps {
 export function LoadTemplateDialog({ children }: LoadTemplateDialogProps) {
   const [open, setOpen] = useState(false);
   const [selectedForm, setSelectedForm] = useState<any>(null);
-  const { updateComponents, updateFormTitle, updateMode, updateFormId, clearHistory } =
-    useFormBuilderStore();
-
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const { updateComponents, updateFormTitle, updateMode, updateFormId, clearHistory } = useFormBuilderStore();
 
   const {
     allTemplates,
     isLoading: isLoadingTemplates,
-    error: loadError,
-    retry,
-    categoriesLoaded,
     totalTemplates,
+    categoriesLoaded,
   } = useLoadTemplates();
 
   const handleSelectForm = (form: any) => {
@@ -101,10 +84,6 @@ export function LoadTemplateDialog({ children }: LoadTemplateDialogProps) {
     updateMode("editor");
   };
 
-  const formatDate = (timestamp: number) => {
-    return new Date(timestamp).toLocaleDateString();
-  };
-
   const handleDialogStateChange = (state: boolean) => {
     setOpen(state);
     if (!state) {
@@ -130,12 +109,7 @@ export function LoadTemplateDialog({ children }: LoadTemplateDialogProps) {
           </DialogTitle>
         </DialogHeader>
 
-        <div
-          className={cn(
-            "grid gap-0 flex-1",
-            selectedCategory && "grid-cols-2"
-          )}
-        >
+        <div className={cn("grid gap-0 flex-1", selectedCategory && "grid-cols-2")}>
           {/* Left Panel - Form List */}
           <ScrollArea
             className={cn(
@@ -173,14 +147,12 @@ export function LoadTemplateDialog({ children }: LoadTemplateDialogProps) {
                       <TableCell className="pl-6">
                         <div className="flex items-center gap-2">
                           <Folder className="h-4 w-4" strokeWidth={1} />
-                          <span className="capitalize">
-                            {category.replace("-", " ")}
-                          </span>
+                          <span>{TEMPLATE_CATEGORY_LABELS[category] ?? category}</span>
                         </div>
                       </TableCell>
                       <TableCell className="pr-6 text-right">
                         <small className="text-xs text-muted-foreground">
-                          {allTemplates[category].length}
+                          {(allTemplates[category] ?? []).length}
                         </small>
                       </TableCell>
                     </TableRow>
@@ -195,21 +167,24 @@ export function LoadTemplateDialog({ children }: LoadTemplateDialogProps) {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                <TableRow
-                      key={0}
-                      className="cursor-pointer hover:bg-muted/50"
-                      onClick={() => {setSelectedCategory(""); setSelectedForm(null)}}
-                    >
-                      <TableCell className="pl-6">
-                        <div className="flex items-center gap-2">
-                          <CornerLeftUp className="h-4 w-4" strokeWidth={1} />
-                          …
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  {allTemplates[selectedCategory].map((template, index) => (
+                  <TableRow
+                    key="back"
+                    className="cursor-pointer hover:bg-muted/50"
+                    onClick={() => {
+                      setSelectedCategory("");
+                      setSelectedForm(null);
+                    }}
+                  >
+                    <TableCell className="pl-6">
+                      <div className="flex items-center gap-2">
+                        <CornerLeftUp className="h-4 w-4" strokeWidth={1} />
+                        ..
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                  {(allTemplates[selectedCategory] ?? []).map((template, index) => (
                     <TableRow
-                      key={index + 1}
+                      key={index}
                       className="cursor-pointer hover:bg-muted/50"
                       onClick={() => handleSelectForm(template)}
                     >
@@ -234,7 +209,7 @@ export function LoadTemplateDialog({ children }: LoadTemplateDialogProps) {
                   <div className="border rounded-lg p-4 bg-background">
                     <GenerateCanvasGrid components={previewComponents} />
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-muted to-transparent pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 right-0 h-10 bg-linear-to-t from-muted to-transparent pointer-events-none" />
                 </>
               ) : (
                 <div className="flex items-center justify-center h-full text-muted-foreground">

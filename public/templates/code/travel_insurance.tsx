@@ -64,10 +64,10 @@ export default function TravelInsuranceApplication() {
     defaultValues: {
       "text-0": "",
       "text-input-0": "",
-      "date-input-0": new Date("2025-11-07T13:00:40.702Z"),
+      "date-input-0": new Date("2026-04-29T13:58:50.322Z"),
       "text-input-1": "",
-      "date-input-1": new Date("2025-11-07T13:00:40.702Z"),
-      "date-input-2": new Date("2025-11-07T13:00:40.702Z"),
+      "date-input-1": new Date("2026-04-29T13:58:50.322Z"),
+      "date-input-2": new Date("2026-04-29T13:58:50.322Z"),
       "checkbox-group-0": [],
       "text-input-2": "",
     },

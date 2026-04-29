@@ -22,6 +22,17 @@
 
 ---
 
+## 🧪 Run Locally
+
+```bash
+bun install
+bun run dev
+```
+
+Use `bun run build` to create a production build and `bun run start` to run it.
+
+---
+
 ## 📣 Community & Feedback
 
 Have a suggestion, bug report, or feature idea?

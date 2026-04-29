@@ -57,7 +57,7 @@ export default function InsuranceClaimForm() {
       "text-0": "",
       "text-input-0": "",
       "text-input-1": "",
-      "date-input-0": new Date("2025-11-07T13:00:40.309Z"),
+      "date-input-0": new Date("2026-04-29T13:58:46.945Z"),
       "text-input-2": "",
       "text-input-3": "",
       "select-0": "",

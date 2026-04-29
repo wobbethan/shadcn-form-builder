@@ -1,4 +1,4 @@
-import { useFormBuilderStore } from "@/stores/form-builder-store";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Select,
@@ -7,11 +7,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { IconPickerDialog } from "../../dialogs/icon-picker-dialog";
 import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
-import { CornerDownRightIcon } from "lucide-react";
+import { useFormBuilderStore } from "@/stores/form-builder-store";
+import { IconPickerDialog } from "../../dialogs/icon-picker-dialog";
 import { ToggleGroupNav } from "../../ui/toggle-group-nav";
 
 type propertiesWhitelist = "type" | "content" | "variant" | "icon";
@@ -82,7 +81,6 @@ export function ButtonGroup({
                 <SelectValue placeholder="Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="button">Button</SelectItem>
                 <SelectItem value="submit">Submit</SelectItem>
                 <SelectItem value="reset">Reset</SelectItem>
               </SelectContent>

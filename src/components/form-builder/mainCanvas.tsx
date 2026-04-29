@@ -1,14 +1,11 @@
 "use client";
 
 import { useFormBuilderStore } from "@/stores/form-builder-store";
-import { useMemo, memo } from "react";
+import { memo } from "react";
 import GenerateCanvasGrid from "./canvas/generate-canvas-grid";
-import { Pre } from "@/components/ui/pre";
-import { generateJsonSchema } from "./helpers/generate-json";
 import { cn } from "@/lib/utils";
 import { CardContent } from "../ui/card";
 import { Card } from "../ui/card";
-import { FormComponentModel } from "@/models/FormComponent";
 import { useDroppable } from "@dnd-kit/core";
 
 const viewportEditorStyles = {
@@ -16,23 +13,6 @@ const viewportEditorStyles = {
   md: "w-[818px]",
   lg: "w-[1074px]",
 } as const;
-
-const JsonPreview = memo(
-  ({ components }: { components: FormComponentModel[] }) => {
-    const jsonString = useMemo(
-      () => JSON.stringify(generateJsonSchema(components), null, 2),
-      [components]
-    );
-
-    return (
-      <div className="absolute top-0 right-0 h-full w-full">
-        <Pre language="json" code={jsonString} />
-      </div>
-    );
-  }
-);
-
-JsonPreview.displayName = "JsonPreview";
 
 const EmptyState = memo(() => {
   const { setNodeRef, isOver } = useDroppable({
@@ -59,7 +39,6 @@ EmptyState.displayName = "EmptyState";
 
 export function MainCanvas() {
   const viewport = useFormBuilderStore((state) => state.viewport);
-  const showJson = useFormBuilderStore((state) => state.showJson);
   const selectedComponent = useFormBuilderStore(
     (state) => state.selectedComponent
   );
@@ -90,7 +69,6 @@ export function MainCanvas() {
           </CardContent>
         </Card>
       </div>
-      {showJson && <JsonPreview components={components} />}
     </div>
   ) : (
     <EmptyState />

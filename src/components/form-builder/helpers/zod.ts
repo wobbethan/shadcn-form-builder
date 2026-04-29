@@ -465,14 +465,13 @@ export const getZodDefaultValues = (
 
   components.forEach((component) => {
     if (
-      component.type === "button" ||
       component.type === "submit-button" ||
       component.type === "reset-button"
     ) {
       return;
     }
 
-    const componentId = component.getField("attributes.id");
+    const componentId = component.id;
 
     let defaultValue = component.getField("value") || "";
 
@@ -573,7 +572,7 @@ const createSchemaForComponent = (
       : createUrlSchema(validations, isRequired);
   }
 
-  if (component.type === "button" || component.type === "submit-button" || component.type === "reset-button") {
+  if (component.type === "submit-button" || component.type === "reset-button") {
     return asString
       ? `z.string().optional()`
       : z.string().optional();
@@ -593,7 +592,7 @@ export const getZodSchemaForComponents = (
   components.forEach((component) => {
     const validations = component.getField("validations");
     const isRequired = shouldForceRequired(validations);
-    const componentId = component.getField("attributes.id");
+    const componentId = component.id;
 
     schema[componentId] = createSchemaForComponent(
       component,

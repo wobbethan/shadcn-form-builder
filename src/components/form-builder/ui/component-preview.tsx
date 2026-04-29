@@ -38,7 +38,7 @@ export function ComponentPreview({ component }: ComponentPreviewProps) {
       <Field>
         {showLabel && label && (
           <div className="space-y-1">
-            <Label className="text-sm font-medium" htmlFor={component.getField("attributes.id") || component.id}>
+            <Label className="text-sm font-medium" htmlFor={component.id}>
               {label}
               {component.getField("validations.required") === "yes" && (
                 <span className="text-destructive ml-1">*</span>
@@ -73,17 +73,7 @@ function getDefaultValues(component: FormComponentModel): Record<string, any> {
         [fieldName]: component.getField("attributes.value") || "",
       };
     
-    case "password":
-      return {
-        [fieldName]: component.getField("attributes.value") || "",
-      };
-    
     case "tel":
-      return {
-        [fieldName]: component.getField("attributes.value") || "",
-      };
-    
-    case "url":
       return {
         [fieldName]: component.getField("attributes.value") || "",
       };
@@ -131,17 +121,6 @@ function getDefaultValues(component: FormComponentModel): Record<string, any> {
         [fieldName]: component.getField("attributes.value") || "",
       };
     
-    case "credit-card":
-      return {
-        [fieldName]: {
-          number: "",
-          expiry: "",
-          cvc: "",
-          name: "",
-        },
-      };
-    
-    case "button":
     case "submit-button":
     case "reset-button":
     case "text":

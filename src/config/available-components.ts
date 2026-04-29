@@ -1,11 +1,10 @@
-import { ReactCode, Viewports } from "@/types/form-builder.types";
+import { Viewports } from "@/types/form-builder.types";
 import { FormComponentModel } from "@/models/FormComponent";
 import {
   // Form Components
   FormInput,
   FormTextarea,
   FormSelect,
-  FormNativeSelect,
   FormCheckbox,
   FormRadio,
   FormSwitch,
@@ -20,7 +19,6 @@ import {
   InputDesignProperties,
   TextareaDesignProperties,
   SelectDesignProperties,
-  NativeSelectDesignProperties,
   CheckboxDesignProperties,
   RadioDesignProperties,
   SwitchDesignProperties,
@@ -29,24 +27,9 @@ import {
   CheckboxGroupDesignProperties,
   // Typography Design Properties
   TextDesignProperties,
-  // React Code
-  getReactCodeInput,
-  getReactCodeTextarea,
-  getReactCodeSelect,
-  getReactCodeNativeSelect,
-  getReactCodeCheckbox,
-  getReactCodeRadio,
-  getReactCodeSwitch,
-  getReactCodeButton,
-  getReactCodeDatePicker,
-  getReactCodeText,
-  getReactCodeCheckboxGroup,
-  getReactCodeCreditCard,
-  FormCreditCard,
   } from "@/components/form-builder/form-components";
 import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
 import { FieldValues } from "react-hook-form";
-import { CreditCardDesignProperties } from "@/components/form-builder/form-components/form-credit-card";
 
 const typographyComponents: FormComponentModel[] = [
   new FormComponentModel({
@@ -97,15 +80,6 @@ const formComponents: FormComponentModel[] = [
     attributes: { type: "email" },
   }),
   new FormComponentModel({
-    id: "password-input",
-    label: "Password",
-    label_info: "Input field for passwords",
-    type: "password",
-    category: "form",
-    icon: "Lock",
-    attributes: { type: "password" },
-  }),
-  new FormComponentModel({
     id: "file-input",
     label: "File upload",
     label_info: "Input field for file uploads",
@@ -124,26 +98,6 @@ const formComponents: FormComponentModel[] = [
     attributes: { type: "tel" },
   }),
   new FormComponentModel({
-    id: "url-input",
-    label: "URL",
-    label_info: "Input field for URLs",
-    type: "url",
-    category: "form",
-    icon: "Link",
-    attributes: { type: "url" },
-  }),
-  new FormComponentModel({
-    id: "credit-card-input",
-    label: "Credit Card",
-    label_info: "Input field for credit card",
-    type: "credit-card",
-    category: "form",
-    icon: "CreditCard",
-    validations: {
-      required: "yes",
-    },
-  }),
-  new FormComponentModel({
     id: "select",
     label: "Select",
     label_info: "Dropdown select",
@@ -153,26 +107,6 @@ const formComponents: FormComponentModel[] = [
     options: [
       { value: "option1", label: "Option 1", labelDescription: "Option 1 Description" },
       { value: "option2", label: "Option 2", labelDescription: "Option 2 Description" },
-    ],
-  }),
-  new FormComponentModel({
-    id: "native-select",
-    label: "Native Select",
-    label_info: "Browser select element",
-    type: "native-select",
-    category: "form",
-    icon: "ChevronsUpDown",
-    options: [
-      {
-        value: "option1",
-        label: "Option 1",
-        labelDescription: "Option 1 Description",
-      },
-      {
-        value: "option2",
-        label: "Option 2",
-        labelDescription: "Option 2 Description",
-      },
     ],
   }),
   new FormComponentModel({
@@ -237,17 +171,6 @@ const formComponents: FormComponentModel[] = [
     },
   }),
   new FormComponentModel({
-    id: "button",
-    label: "Button",
-    label_info: "Button",
-    content: "Button",
-    type: "button",
-    category: "form",
-    icon: "SquareMousePointer",
-    properties: { style: { showLabel: "no" }, variant: "outline" },
-    attributes: { type: "button" }
-  }),
-  new FormComponentModel({
     id: "submit-button",
     label: "Submit",
     label_info: "Button to submit form",
@@ -273,26 +196,21 @@ const formComponents: FormComponentModel[] = [
 
 export const AVAILABLE_COMPONENTS: FormComponentModel[] = [...typographyComponents, ...formComponents];
 
-export const NEW_COMPONENTS: string[] = ["credit-card", "native-select"];
-
 const typographyViews = {
-  text: { render: (component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) => Text(component, form, field), renderDesignProperties: TextDesignProperties, reactCode: getReactCodeText },
+  text: { render: (component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) => Text(component, form, field), renderDesignProperties: TextDesignProperties },
 };
 
 const formViews = {
-  input: { render: FormInput, renderDesignProperties: InputDesignProperties, reactCode: getReactCodeInput },
-  "credit-card": { render: FormCreditCard, renderDesignProperties: CreditCardDesignProperties, reactCode: getReactCodeCreditCard },
-  textarea: { render: FormTextarea, renderDesignProperties: TextareaDesignProperties, reactCode: getReactCodeTextarea },
-  select: { render: FormSelect, renderDesignProperties: SelectDesignProperties, reactCode: getReactCodeSelect },
-  "native-select": { render: FormNativeSelect, renderDesignProperties: NativeSelectDesignProperties, reactCode: getReactCodeNativeSelect },
-  checkbox: { render: FormCheckbox, renderDesignProperties: CheckboxDesignProperties, reactCode: getReactCodeCheckbox },
-  "checkbox-group": { render: FormCheckboxGroup, renderDesignProperties: CheckboxGroupDesignProperties, reactCode: getReactCodeCheckboxGroup },
-  radio: { render: FormRadio, renderDesignProperties: RadioDesignProperties, reactCode: getReactCodeRadio },
-  switch: { render: FormSwitch, renderDesignProperties: SwitchDesignProperties, reactCode: getReactCodeSwitch },
-  button: { render: FormButton, renderDesignProperties: ButtonDesignProperties, reactCode: getReactCodeButton },
-  "submit-button": { render: FormButton, renderDesignProperties: ButtonDesignProperties, reactCode: getReactCodeButton },
-  "reset-button": { render: FormButton, renderDesignProperties: ButtonDesignProperties, reactCode: getReactCodeButton },
-  date: { render: FormDatePicker, renderDesignProperties: DatePickerDesignProperties, reactCode: getReactCodeDatePicker },
+  input: { render: FormInput, renderDesignProperties: InputDesignProperties },
+  textarea: { render: FormTextarea, renderDesignProperties: TextareaDesignProperties },
+  select: { render: FormSelect, renderDesignProperties: SelectDesignProperties },
+  checkbox: { render: FormCheckbox, renderDesignProperties: CheckboxDesignProperties },
+  "checkbox-group": { render: FormCheckboxGroup, renderDesignProperties: CheckboxGroupDesignProperties },
+  radio: { render: FormRadio, renderDesignProperties: RadioDesignProperties },
+  switch: { render: FormSwitch, renderDesignProperties: SwitchDesignProperties },
+  "submit-button": { render: FormButton, renderDesignProperties: ButtonDesignProperties },
+  "reset-button": { render: FormButton, renderDesignProperties: ButtonDesignProperties },
+  date: { render: FormDatePicker, renderDesignProperties: DatePickerDesignProperties },
 };
 
 const views = {
@@ -300,19 +218,9 @@ const views = {
   ...formViews,
   number: formViews.input,
   email: formViews.input,
-  password: formViews.input,
   tel: formViews.input,
-  url: formViews.input,
   file: formViews.input,
 };
-
-export function getComponentReactCode(component: FormComponentModel): ReactCode | undefined {
-
-  const componentView = views[component.type as keyof typeof views];
-  if (!componentView) return undefined;
-
-  return componentView.reactCode(component);
-}
 
 export function getCoponentSidebarOptions(component: FormComponentModel) {
 

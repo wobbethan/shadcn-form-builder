@@ -64,7 +64,7 @@ export default function EmployeeOnboarding() {
       "tel-input-0": "",
       "select-0": "",
       "text-input-2": "",
-      "date-input-0": new Date("2025-11-07T13:00:39.860Z"),
+      "date-input-0": new Date("2026-04-29T13:58:41.649Z"),
       "text-input-3": "",
       "tel-input-1": "",
     },

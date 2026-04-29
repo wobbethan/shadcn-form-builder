@@ -8,18 +8,16 @@ export const saveForm = mutation({
     components: v.array(v.any()),
     tags: v.optional(v.array(v.string())),
     category: v.optional(v.string()),
-    userId: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const now = Date.now();
-    
+
     const formId = await ctx.db.insert("forms", {
       title: args.title,
       description: args.description,
       components: args.components,
       tags: args.tags,
       category: args.category,
-      userId: args.userId,
       createdAt: now,
       updatedAt: now,
     });
@@ -56,20 +54,6 @@ export const getForm = query({
   },
 });
 
-export const getUserForms = query({
-  args: { userId: v.optional(v.string()) },
-  handler: async (ctx, args) => {
-    if (!args.userId) {
-      return [];
-    }
-    
-    return await ctx.db
-      .query("forms")
-      .withIndex("by_user", (q) => q.eq("userId", args.userId))
-      .order("desc")
-      .collect();
-  },
-});
 
 export const getAllForms = query({
   handler: async (ctx) => {

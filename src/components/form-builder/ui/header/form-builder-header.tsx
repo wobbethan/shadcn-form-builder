@@ -1,8 +1,6 @@
 "use client";
 
 import {
-  CodeIcon,
-  ExternalLink,
   PlayIcon,
   XIcon,
   Monitor,
@@ -14,8 +12,6 @@ import { ToggleGroupNav } from "@/components/form-builder/ui/toggle-group-nav";
 import { EditorToolbar } from "@/components/form-builder/form-components/wysiwyg/editor-toolbar";
 import { FormBuilderMenubar } from "./form-builder-menubar";
 import { cn } from "@/lib/utils";
-import Logo from "@/components/landingpage/logo";
-import Link from "next/link";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { useMemo } from "react";
 import { UndoRedoButtons } from "../undo-redo-buttons";
@@ -25,7 +21,6 @@ export function FormBuilderHeader() {
   // Get state from store
   const mode = useFormBuilderStore((state) => state.mode);
   const viewport = useFormBuilderStore((state) => state.viewport);
-  const showJson = useFormBuilderStore((state) => state.showJson);
   const editor = useFormBuilderStore((state) => state.editor);
   const components = useFormBuilderStore((state) => state.components);
   const formTitle = useFormBuilderStore((state) => state.formTitle);
@@ -34,9 +29,6 @@ export function FormBuilderHeader() {
   const updateViewport = useFormBuilderStore((state) => state.updateViewport);
   const updateMode = useFormBuilderStore((state) => state.updateMode);
   const selectComponent = useFormBuilderStore((state) => state.selectComponent);
-  const toggleJsonPreview = useFormBuilderStore(
-    (state) => state.toggleJsonPreview
-  );
 
   // Memoize viewport items
   const viewportItems = useMemo(
@@ -53,12 +45,11 @@ export function FormBuilderHeader() {
         "fixed top-0 w-full flex flex-row gap-2 justify-between bg-sidebar border-b z-30"
       )}
     >
-      <a
-        href="/"
+      <div
         className="flex flex-row gap-2 items-center justify-center md:justify-start p-2 px-4 border-r w-full md:w-[300px]"
       >
-        <Logo />
-      </a>
+        Placeholder
+      </div>
       <div className="p-2 flex-1 grid grid-cols-3">
         {(mode === "editor" || mode === "preview") && (
           <>
@@ -82,7 +73,7 @@ export function FormBuilderHeader() {
               "justify-center col-span-7 2xl:col-span-3"
           )}
         >
-          {mode !== "export" && !editor && (
+          {!editor && (
             <>
               {mode !== "editor-preview" && (
                 <UndoRedoButtons size="sm" variant="ghost" />
@@ -95,7 +86,6 @@ export function FormBuilderHeader() {
                   updateViewport(value as "sm" | "md" | "lg")
                 }
               />
-              <ThemeToggle />
             </>
           )}
         </div>
@@ -120,15 +110,11 @@ export function FormBuilderHeader() {
               variant="default"
               size="sm"
               className="cursor-pointer flex-1"
-              onClick={() => {
-                updateMode("export");
-                selectComponent(null);
-              }}
+              onClick={() => undefined}
               disabled={components.length === 0}
               id="export-code-button"
             >
-              <ExternalLink className="h-4 w-4" />
-              Export
+              Publish
             </Button>
           </>
         )}
@@ -141,17 +127,6 @@ export function FormBuilderHeader() {
           >
             <XIcon className="h-4 w-4" />
             Exit Preview
-          </Button>
-        )}
-        {mode === "export" && (
-          <Button
-            variant="default"
-            size="sm"
-            className="cursor-pointer w-full"
-            onClick={() => updateMode("editor")}
-          >
-            <XIcon className="h-4 w-4" />
-            Exit Export
           </Button>
         )}
       </div>

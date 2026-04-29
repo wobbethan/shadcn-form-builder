@@ -82,14 +82,6 @@ export const RowColumn = ({ component, index, form }: SortableRowProps) => {
     [component]
   );
 
-  const visibilityClasses = useMemo(
-    () => generateTWClassesForAllViewports(component, "visible"),
-    [component]
-  );
-
-  const isHidden =
-    component.getField("properties.style.visible", viewport) === "no";
-
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
       if (mode === "editor" && !columnIsDragging) {
@@ -128,12 +120,10 @@ export const RowColumn = ({ component, index, form }: SortableRowProps) => {
         "relative group self-end",
         colSpanClasses,
         colStartClasses,
-        mode === "editor-preview" || mode === "preview" && visibilityClasses,
         mode === "editor" &&
           "group/component hover:outline-1 hover:outline-offset-6 hover:outline-primary cursor-pointer",
         columnIsDragging && "cursor-grabbing",
         selectedComponent && "opacity-30",
-        isHidden && "opacity-50",
         selectedComponent?.id === component.id &&
           "outline-1 outline-offset-6 outline-primary z-20 opacity-100"
       )}

@@ -51,7 +51,7 @@ interface LoadFormDialogProps {
 export function LoadFormDialog({ children }: LoadFormDialogProps) {
   const [open, setOpen] = useState(false);
   const [selectedForm, setSelectedForm] = useState<any>(null);
-  const { userForms, isLoading } = useSavedForms();
+  const { forms, isLoading } = useSavedForms();
   const { updateComponents, updateFormTitle, updateMode, updateFormId, clearHistory } =
     useFormBuilderStore();
 
@@ -118,15 +118,15 @@ export function LoadFormDialog({ children }: LoadFormDialogProps) {
           </DialogTitle>
         </DialogHeader>
 
-        <div className={cn("grid gap-0 flex-1", userForms.length !== 0  && "grid-cols-2")}>
+        <div className={cn("grid gap-0 flex-1", forms.length !== 0  && "grid-cols-2")}>
           {/* Left Panel - Form List */}
-          <ScrollArea className={cn("flex-1 ", userForms.length !== 0  && "border-r h-[478px]")}>
+          <ScrollArea className={cn("flex-1 ", forms.length !== 0  && "border-r h-[478px]")}>
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
                 <Loader2 className="h-6 w-6 animate-spin" />
                 <span className="ml-2">Loading saved forms...</span>
               </div>
-            ) : userForms.length === 0 ? (
+            ) : forms.length === 0 ? (
               <div className="text-center py-8 text-muted-foreground">
                 <FolderOpen className="h-12 w-12 mx-auto mb-4 opacity-50" />
                 <p>No saved forms found.</p>
@@ -143,7 +143,7 @@ export function LoadFormDialog({ children }: LoadFormDialogProps) {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {userForms.map((form) => (
+                  {forms.map((form) => (
                     <TableRow
                       key={form._id}
                       onClick={() => handleSelectForm(form)}
@@ -166,7 +166,7 @@ export function LoadFormDialog({ children }: LoadFormDialogProps) {
           </ScrollArea>
 
           {/* Right Panel - Preview */}
-          {userForms.length !== 0 && (
+          {forms.length !== 0 && (
           <div className="p-4 relative bg-dotted overflow-hidden h-[478px] ">
             {selectedForm ? (
               <>

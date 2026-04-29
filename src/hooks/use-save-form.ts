@@ -2,11 +2,9 @@ import { useState } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
-import { useAuthState } from "@/hooks/use-auth";
 
 export function useSaveForm() {
   const [isSaving, setIsSaving] = useState(false);
-  const { user } = useAuthState();
   const saveForm = useMutation(api.forms.saveForm);
   const updateForm = useMutation(api.forms.updateForm);
   
@@ -50,7 +48,6 @@ export function useSaveForm() {
           components: componentsData,
           tags: options?.tags || [],
           category: options?.category || "custom",
-          userId: user?.id,
         });
 
         return newFormId;

@@ -44,7 +44,6 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
   );
 
   const showLabel = component.getField("properties.style.showLabel", viewport) === "yes";
-  const visible = component.getField("properties.style.visible", viewport) === "yes";
 
   return component.category === "form" ? (
     <Controller
@@ -68,14 +67,11 @@ export function RenderEditorComponent({ form, component }: FormComponentProps) {
               className={cn(
                 "w-auto! flex items-center gap-2 ",
                 mode === "editor" && "cursor-pointer",
-                !showLabel && visible && "hidden"
+                !showLabel && "hidden"
               )}
-              htmlFor={component.getField("attributes.id") || component.id}
+              htmlFor={component.id}
             >
               {showLabel && component.getField("label", viewport)}
-              {!visible && (
-                <span className="text-xs text-muted-foreground">Hidden</span>
-              )}
             </FieldLabel>
             {renderedComponent}
             {component.description && (

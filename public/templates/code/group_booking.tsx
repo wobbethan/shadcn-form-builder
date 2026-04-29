@@ -64,7 +64,7 @@ export default function GroupTravelBooking() {
       "text-input-2": "",
       "select-0": "",
       "text-input-3": "",
-      "date-input-0": new Date("2025-11-07T13:00:40.777Z"),
+      "date-input-0": new Date("2026-04-29T13:58:50.445Z"),
       "checkbox-group-0": [],
     },
   });

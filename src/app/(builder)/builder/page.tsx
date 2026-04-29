@@ -16,14 +16,12 @@ import { Loader2 } from "lucide-react";
 import { FormBuilderHeader } from "@/components/form-builder/ui/header/form-builder-header";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { useCallback, useMemo, useState, useEffect } from "react";
-import { MainExport } from "@/components/form-builder/dialogs/generate-code-dialog";
 import { MobileNotification } from "@/components/form-builder/ui/mobile-notification";
 import { useIsMobile } from "@/hooks/use-mobile";
 import SocialLinks from "@/components/form-builder/sidebar/socialLinks";
 import { WelcomeDialog } from "@/components/form-builder/dialogs/welcome-dialog";
 import { cn, getGridRows, updateColSpans } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
-import { useAuthState } from "@/hooks/use-auth";
 
 export default function FormBuilderPage() {
   const isMobile = useIsMobile();
@@ -41,7 +39,6 @@ export default function FormBuilderPage() {
   const formTitle = useFormBuilderStore((state) => state.formTitle);
   const [isLoadingTemplate, setIsLoadingTemplate] = useState(false);
   const [showWelcomeDialog, setShowWelcomeDialog] = useState(false);
-  const { isLoading } = useAuthState();
 
   const [draggingDOMElement, setDraggingDOMElement] =
     useState<HTMLElement | null>(null);
@@ -243,7 +240,7 @@ export default function FormBuilderPage() {
   );
 
   // Show loading state while template is being loaded
-  if (isLoadingTemplate || isLoading) {
+  if (isLoadingTemplate) {
     return (
       <div className="flex h-screen items-center justify-center">
         <div className="flex flex-col items-center gap-4">
@@ -284,7 +281,7 @@ export default function FormBuilderPage() {
                   "flex-1 transition-all duration-300 overflow-auto relative bg-dotted pt-14 scrollbar-hide"
                 )}
               >
-                {mode === "export" ? <MainExport /> : <MainCanvas />}
+                <MainCanvas />
               </main>
               <SidebarRight />
             </div>

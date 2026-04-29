@@ -1,7 +1,7 @@
 "use client";
 
+import { AVAILABLE_COMPONENTS } from "@/config/available-components";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
-import { AVAILABLE_COMPONENTS, NEW_COMPONENTS } from "@/config/available-components";
 
 import {
   Sidebar,
@@ -9,15 +9,11 @@ import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
-  SidebarMenuItem,
   SidebarMenuButton,
-  SidebarFooter,
+  SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useDraggable } from "@dnd-kit/core";
 import { ComponentIcon } from "../helpers/component-icon";
-import { DragOverlay, useDraggable } from "@dnd-kit/core";
-import { SidebarUser } from "./sidebarUser";
-import { useAuthState } from "@/hooks/use-auth";
-import { Badge } from "@/components/ui/badge";
 
 interface ComponentGroup {
   label: string;
@@ -27,7 +23,6 @@ interface ComponentGroup {
 
 export function SidebarLeft() {
   const { addComponent } = useFormBuilderStore();
-  const { user } = useAuthState();
   const componentGroups: ComponentGroup[] = [
     {
       label: "Typography",
@@ -38,23 +33,15 @@ export function SidebarLeft() {
     {
       label: "Input Fields",
       components: AVAILABLE_COMPONENTS.filter((comp) =>
-        [
-          "input",
-          "textarea",
-          "number",
-          "email",
-          "password",
-          "tel",
-          "url",
-          "file",
-          "credit-card",
-        ].includes(comp.type)
+        ["input", "textarea", "number", "email", "tel", "file"].includes(
+          comp.type
+        )
       ),
     },
     {
       label: "Selection Fields",
       components: AVAILABLE_COMPONENTS.filter((comp) =>
-        ["select", "native-select", "checkbox", "checkbox-group", "radio", "switch"].includes(
+        ["select", "checkbox", "checkbox-group", "radio", "switch"].includes(
           comp.type
         )
       ),
@@ -68,7 +55,7 @@ export function SidebarLeft() {
     {
       label: "Buttons",
       components: AVAILABLE_COMPONENTS.filter((comp) =>
-        ["button", "submit-button", "reset-button"].includes(comp.type)
+        ["submit-button", "reset-button"].includes(comp.type)
       ),
     },
   ];
@@ -76,11 +63,9 @@ export function SidebarLeft() {
   const ComponentItem = ({
     component,
     index,
-    isNew,
   }: {
     component: (typeof AVAILABLE_COMPONENTS)[0];
     index: number;
-    isNew: boolean;
   }) => {
     const {
       attributes: columnAttributes,
@@ -118,11 +103,6 @@ export function SidebarLeft() {
               </span>
 
             </div>
-            {isNew && (
-                <Badge variant="default" className="">
-                  New
-                </Badge>
-              )}
           </div>
         </SidebarMenuButton>
       </SidebarMenuItem>
@@ -142,7 +122,6 @@ export function SidebarLeft() {
                     key={component.id}
                     component={component}
                     index={index}
-                    isNew={NEW_COMPONENTS.includes(component.type)}
                   />
                 ))}
               </SidebarMenu>
@@ -150,9 +129,6 @@ export function SidebarLeft() {
           ))}
           
         </SidebarContent>
-        <SidebarFooter className="border-t flex flex-col gap-4 py-3 px-2 justify-center">
-          <SidebarUser /> 
-        </SidebarFooter>
       </div>
     </Sidebar>
   );

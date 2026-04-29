@@ -1,14 +1,9 @@
-import "../globals.css";
-import { cn } from "@/lib/utils";
-import { fontVariables } from "@/lib/fonts";
-import { PostHogProvider } from "@/providers/PostHogProvider";
-import ConvexClientProvider from "@/providers/ConvexClientProvider";
-import { SubscriptionProvider } from "@/providers/SubscriptionProvider";
-import { ClerkProvider } from "@clerk/nextjs";
-import { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
-import Header from "@/components/landingpage/header";
-import Footer from "@/components/landingpage/footer";
+import { fontVariables } from "@/lib/fonts";
+import { cn } from "@/lib/utils";
+import ConvexClientProvider from "@/providers/ConvexClientProvider";
+import { Metadata } from "next";
+import "../globals.css";
 
 export const metadata: Metadata = {
   title: {
@@ -82,19 +77,13 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body className={cn(fontVariables, "font-sans")}>
           <ConvexClientProvider>
-            <PostHogProvider>
-              <SubscriptionProvider>
               {children}
                 <Toaster position="top-center" />
-              </SubscriptionProvider>
-            </PostHogProvider>
           </ConvexClientProvider>
         </body>
       </html>
-    </ClerkProvider>
   );
 }

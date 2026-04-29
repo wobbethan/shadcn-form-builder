@@ -65,7 +65,7 @@ export default function AssignmentSubmission() {
       "text-input-1": "",
       "text-input-2": "",
       "text-input-3": "",
-      "date-input-0": new Date("2025-11-07T13:00:40.096Z"),
+      "date-input-0": new Date("2026-04-29T13:58:43.552Z"),
       "textarea-0": "",
       "file-input-0": "",
       "checkbox-0": false,

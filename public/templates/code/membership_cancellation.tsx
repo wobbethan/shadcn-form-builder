@@ -67,7 +67,7 @@ export default function MembershipCancellation() {
       "text-input-1": "",
       "email-input-0": "",
       "radio-group-0": "",
-      "date-input-0": new Date("2025-11-07T13:00:40.404Z"),
+      "date-input-0": new Date("2026-04-29T13:58:48.254Z"),
       "textarea-0": "",
       "checkbox-0": false,
     },

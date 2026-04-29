@@ -21,7 +21,6 @@ import {
   FileText,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useAuthState } from "@/hooks/use-auth";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 
 interface WelcomeDialogProps {
@@ -30,7 +29,6 @@ interface WelcomeDialogProps {
 }
 
 export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
-  const { user } = useAuthState();
   const { updateFormTitle, saveSnapshot } = useFormBuilderStore();
 
   const handleStartFromScratch = () => {
@@ -49,7 +47,7 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
       >
         <DialogHeader>
           <DialogTitle className="text-2xl font-bold flex items-center gap-2">
-            Welcome {user?.username}
+            Welcome
           </DialogTitle>
           <DialogDescription className="text-base">
             Quick start by choosing a template or create a form from scratch
@@ -89,49 +87,47 @@ export function WelcomeDialog({ open, onOpenChange }: WelcomeDialogProps) {
 
                 <div className="space-y-3">
                   <a
-                    href="/builder?template=business&key=job_application"
+                    href="/builder?template=screening&key=patient_registration"
                     className={cn(
                       buttonVariants({ variant: "outline" }),
                       "w-full justify-between"
                     )}
                   >
                     <FileText className="h-4 w-4 mr-2" strokeWidth={1} />
-                    <span className="flex-1 text-left">Job Application</span>
+                    <span className="flex-1 text-left">Patient Registration</span>
                     <ChevronRight className="h-4 w-4 ml-2" />
                   </a>
                   <a
-                    href="/builder?template=car-rental&key=vehicle_reservation"
+                    href="/builder?template=screening&key=appointment_request"
                     className={cn(
                       buttonVariants({ variant: "outline" }),
                       "w-full justify-between"
                     )}
                   >
                     <FileText className="h-4 w-4 mr-2" strokeWidth={1} />
-                    <span className="flex-1 text-left">
-                      Vehicle Reservation
-                    </span>
+                    <span className="flex-1 text-left">Appointment Request</span>
                     <ChevronRight className="h-4 w-4 ml-2" />
                   </a>
                   <a
-                    href="/builder?template=business&key=contact_form"
+                    href="/builder?template=screening&key=medical_history"
                     className={cn(
                       buttonVariants({ variant: "outline" }),
                       "w-full justify-between"
                     )}
                   >
                     <FileText className="h-4 w-4 mr-2" strokeWidth={1} />
-                    <span className="flex-1 text-left">Contact Us</span>
+                    <span className="flex-1 text-left">Medical History Form</span>
                     <ChevronRight className="h-4 w-4 ml-2" />
                   </a>
                   <a
-                    href="/builder?template=user-account&key=profile_update"
+                    href="/builder?template=screening&key=telemedicine_consultation"
                     className={cn(
                       buttonVariants({ variant: "outline" }),
                       "w-full justify-between"
                     )}
                   >
                     <FileText className="h-4 w-4 mr-2" strokeWidth={1} />
-                    <span className="flex-1 text-left">Profile Update</span>
+                    <span className="flex-1 text-left">Telemedicine Consultation</span>
                     <ChevronRight className="h-4 w-4 ml-2" />
                   </a>
                 </div>

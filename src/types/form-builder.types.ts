@@ -2,7 +2,6 @@ import { FormComponentModel } from "@/models/FormComponent";
 import { Editor } from "@tiptap/react";
 import { icons } from "lucide-react";
 import { HTMLAttributes, HTMLInputTypeAttribute } from 'react';
-import { SubscriptionInfo } from './subscription.types';
 import { TemplateDefinition } from "./template.types";
 import { FormComponentModelInput } from "./FormComponent.types";
 
@@ -18,19 +17,11 @@ export type Viewports = 'sm' | 'md' | 'lg';
 export type DesignPropertiesViews = {
   base: React.ReactNode;
   grid: React.ReactNode;
-  html: React.ReactNode;
   label: React.ReactNode;
   input: React.ReactNode;
   button: React.ReactNode;
   options: React.ReactNode;
   validation: React.ReactNode;
-};
-
-export type ReactCode = {
-  template: string;
-  logic?: string;
-  dependencies: Record<string, string[] | string>;  
-  thirdPartyDependencies?: string[];
 };
 
 export type TemplateData = {
@@ -45,7 +36,7 @@ export type TemplateData = {
 export interface TemplateHydrationPayload extends Omit<TemplateDefinition, "components"> {
   components: Array<FormComponentModelInput | FormComponentModel>;
   templateId?: string | null;
-  mode?: 'editor' | 'editor-preview' | 'preview' | 'export';
+  mode?: 'editor' | 'editor-preview' | 'preview';
   resetHistory?: boolean;
 }
 
@@ -63,9 +54,8 @@ export type HistoryState = {
 };
 
 export interface FormBuilderStore {
-  mode: 'editor' | 'editor-preview' | 'preview' | 'export';
+  mode: 'editor' | 'editor-preview' | 'preview';
   viewport: Viewports;
-  showJson: boolean;
   formId: string | null;
   formTitle: string;
   loadedTemplateId: string | null;
@@ -73,10 +63,8 @@ export interface FormBuilderStore {
   editor: Editor | null;
   enableDragging: boolean;
   history: HistoryState;
-  subscriptionInfo: SubscriptionInfo | null;
   updateMode: (mode: FormBuilderStore['mode']) => void;
   updateViewport: (viewport: Viewports) => void;
-  toggleJsonPreview: () => void;
   updateFormTitle: (title: string) => void;
   updateFormId: (id: string) => void;
   setEditor: (editor: Editor | null) => void;
@@ -92,7 +80,6 @@ export interface FormBuilderStore {
   duplicateComponent: (componentId: string) => void;
   loadTemplate: (templateName: string, templateKey?: string) => Promise<boolean>;
   clearForm: () => void;
-  // History methods
   saveSnapshot: () => void;
   undo: () => boolean;
   redo: () => boolean;
@@ -100,20 +87,4 @@ export interface FormBuilderStore {
   canRedo: () => boolean;
   clearHistory: () => void;
   jumpToSnapshot: (index: number) => boolean;
-  // Subscription methods
-  updateSubscriptionInfo: (subscriptionInfo: SubscriptionInfo) => void;
-  // Theme methods
-  currentTheme: string | null;
-  themes: Array<{
-    _id: string;
-    userId: string;
-    name: string;
-    css: string;
-    isDefault: boolean;
-    createdAt: number;
-    updatedAt: number;
-  }>;
-  setCurrentTheme: (css: string | null) => void;
-  clearTheme: () => void;
-  updateThemes: (themes: FormBuilderStore['themes']) => void;
-} 
+}
