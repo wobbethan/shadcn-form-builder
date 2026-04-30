@@ -21,8 +21,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useSaveForm } from "@/hooks/use-save-form";
-import { useSavedForms } from "@/hooks/use-saved-forms";
+import { useSaveForm } from "@/features/save-form/hooks/use-save-form";
+import { useSavedForms } from "@/features/save-form/hooks/use-saved-forms";
 import { cn } from "@/lib/utils";
 import { FormComponentModel } from "@/models/FormComponent";
 import { useFormBuilderStore } from "@/stores/form-builder-store";

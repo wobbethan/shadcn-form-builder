@@ -5,7 +5,7 @@ import {
   DragOverlay,
 } from "@dnd-kit/core";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { FieldsSidebar } from "@/widgets/fields-sidebar/ui/fields-sidebar";
+import { FieldsSidebar } from "@/features/add-form-fields/ui/fields-sidebar";
 import { SidebarRight } from "@/components/form-builder/sidebar/sidebarRight";
 import { MainCanvas } from "@/components/form-builder/mainCanvas";
 import { Loader2 } from "lucide-react";

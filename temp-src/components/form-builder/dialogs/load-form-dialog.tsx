@@ -32,13 +32,10 @@ import {
 import {
   Loader2,
   FolderOpen,
-  Calendar,
-  User,
-  Eye,
   FileText,
   FileSearch,
 } from "lucide-react";
-import { useSavedForms } from "@/hooks/use-saved-forms";
+import { useGetAllForms } from "@/entities/forms/api/get-all-forms";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 import { FormComponentModel } from "@/models/FormComponent";
 import GenerateCanvasGrid from "@/widgets/canvas/ui/generate-canvas-grid";
@@ -51,7 +48,9 @@ interface LoadFormDialogProps {
 export function LoadFormDialog({ children }: LoadFormDialogProps) {
   const [open, setOpen] = useState(false);
   const [selectedForm, setSelectedForm] = useState<any>(null);
-  const { forms, isLoading } = useSavedForms();
+  const formsQuery = useGetAllForms();
+  const forms = formsQuery ?? [];
+  const isLoading = formsQuery === undefined;
   const { updateComponents, updateFormTitle, updateMode, updateFormId, clearHistory } =
     useFormBuilderStore();
 
@@ -173,7 +172,7 @@ export function LoadFormDialog({ children }: LoadFormDialogProps) {
                 <div className="border rounded-lg p-4 bg-background">
                   <GenerateCanvasGrid components={previewComponents} />
                 </div>
-                <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-muted to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 left-0 right-0 h-10 bg-linear-to-t from-muted to-transparent pointer-events-none" />
               </>
             ) : (
               <div className="flex items-center justify-center h-full text-muted-foreground">

@@ -15,7 +15,7 @@ import {
 import { cn, generateTWClassesForAllViewports } from "@/lib/utils";
 import { renderComponent } from "@/config/available-components";
 import { FormComponentModel } from "@/models/FormComponent";
-import { FormWysiwygEditor } from "../../../../src/widgets/fields-sidebar/ui/form-components/wysiwyg/form-wysiwyg-editor";
+import { FormWysiwygEditor } from "../../../../src/features/add-form-fields/ui/form-components/wysiwyg/form-wysiwyg-editor";
 import { useState } from "react";
 
 export interface FormComponentProps {

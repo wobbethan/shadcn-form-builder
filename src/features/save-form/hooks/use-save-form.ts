@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { useMutation } from "convex/react";
-import { api } from "../../convex/_generated/api";
+import { useSaveFormMutation } from "@/features/save-form/api/save-form";
+import { useUpdateFormMutation } from "@/features/save-form/api/update-form";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
 
 export function useSaveForm() {
   const [isSaving, setIsSaving] = useState(false);
-  const saveForm = useMutation(api.forms.saveForm);
-  const updateForm = useMutation(api.forms.updateForm);
-  
+  const saveForm = useSaveFormMutation();
+  const updateForm = useUpdateFormMutation();
+
   const components = useFormBuilderStore((state) => state.components);
   const formTitle = useFormBuilderStore((state) => state.formTitle);
   const formId = useFormBuilderStore((state) => state.formId);

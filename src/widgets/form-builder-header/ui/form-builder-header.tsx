@@ -1,43 +1,22 @@
 "use client";
 
-import { EditorToolbar } from "@/widgets/fields-sidebar/ui/form-components/wysiwyg/editor-toolbar";
-import { ToggleGroupNav } from "@/components/form-builder/ui/toggle-group-nav";
-import { Button } from "@/components/ui/button";
+import { EditorToolbar } from "@/features/add-form-fields/ui/form-components/wysiwyg/editor-toolbar";
+import { ViewportToggler } from "@/features/change-viewport/ui/viewport-toggler";
+import { ExitPreviewButton } from "@/features/preview-form/ui/exit-preview-button";
+import { HistoryButton } from "@/features/manage-form-version/ui/history-button";
+import { PreviewButton } from "@/features/preview-form/ui/preview-button";
+import { PublishFormButton } from "@/features/publish-form";
+import { RedoButton } from "@/features/manage-form-version/ui/redo-button";
+import { UndoButton } from "@/features/manage-form-version/ui/undo-button";
 import { cn } from "@/lib/utils";
 import { useFormBuilderStore } from "@/stores/form-builder-store";
-import {
-  Monitor,
-  PlayIcon,
-  Smartphone,
-  Tablet,
-  XIcon,
-} from "lucide-react";
-import { useMemo } from "react";
-import { UndoRedoButtons } from "../../../../temp-src/components/form-builder/ui/undo-redo-buttons";
 import { FormBuilderMenubar } from "./form-builder-menubar";
 
 export function FormBuilderHeader() {
   // Get state from store
   const mode = useFormBuilderStore((state) => state.mode);
-  const viewport = useFormBuilderStore((state) => state.viewport);
   const editor = useFormBuilderStore((state) => state.editor);
-  const components = useFormBuilderStore((state) => state.components);
   const formTitle = useFormBuilderStore((state) => state.formTitle);
-
-  // Get actions from store
-  const updateViewport = useFormBuilderStore((state) => state.updateViewport);
-  const updateMode = useFormBuilderStore((state) => state.updateMode);
-  const selectComponent = useFormBuilderStore((state) => state.selectComponent);
-
-  // Memoize viewport items
-  const viewportItems = useMemo(
-    () => [
-      { value: "lg", icon: Monitor },
-      { value: "md", icon: Tablet },
-      { value: "sm", icon: Smartphone },
-    ],
-    []
-  );
   return (
     <header
       className={cn(
@@ -75,16 +54,13 @@ export function FormBuilderHeader() {
           {!editor && (
             <>
               {mode !== "editor-preview" && (
-                <UndoRedoButtons size="sm" variant="ghost" />
+                <div className="flex items-center gap-1">
+                  <UndoButton />
+                  <RedoButton />
+                  <HistoryButton />
+                </div>
               )}
-              <ToggleGroupNav
-                name="viewport"
-                items={viewportItems}
-                defaultValue={viewport}
-                onValueChange={(value) =>
-                  updateViewport(value as "sm" | "md" | "lg")
-                }
-              />
+              <ViewportToggler />
             </>
           )}
         </div>
@@ -92,42 +68,11 @@ export function FormBuilderHeader() {
       <div className="hidden md:flex flex-row gap-2 border-l py-2 px-4 w-[300px]">
         {(mode === "editor" || mode === "preview") && (
           <>
-            <Button
-              variant="outline"
-              size="sm"
-              className="cursor-pointer flex-1"
-              onClick={() => {
-                updateMode("editor-preview");
-                selectComponent(null);
-              }}
-              disabled={components.length === 0}
-            >
-              <PlayIcon className="h-4 w-4" />
-              Preview
-            </Button>
-            <Button
-              variant="default"
-              size="sm"
-              className="cursor-pointer flex-1"
-              onClick={() => undefined}
-              disabled={components.length === 0}
-              id="export-code-button"
-            >
-              Publish
-            </Button>
+            <PreviewButton />
+            <PublishFormButton />
           </>
         )}
-        {mode === "editor-preview" && (
-          <Button
-            variant="default"
-            size="sm"
-            className="cursor-pointer w-full"
-            onClick={() => updateMode("editor")}
-          >
-            <XIcon className="h-4 w-4" />
-            Exit Preview
-          </Button>
-        )}
+        {mode === "editor-preview" && <ExitPreviewButton />}
       </div>
     </header>
   );

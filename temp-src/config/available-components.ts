@@ -27,7 +27,7 @@ import {
   CheckboxGroupDesignProperties,
   // Typography Design Properties
   TextDesignProperties,
-  } from "@/widgets/fields-sidebar/ui/form-components";
+  } from "@/features/add-form-fields/ui/form-components";
 import { ControllerRenderProps, UseFormReturn } from "react-hook-form";
 import { FieldValues } from "react-hook-form";
 
