@@ -1,0 +1,1 @@
+export {FormBuilderPage as default} from "./ui/form-builder-page";
