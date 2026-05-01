@@ -2,7 +2,7 @@ import {
   NativeSelect,
   NativeSelectOption,
 } from "@/components/ui/native-select"
-import { FormComponentModel } from "@/models/FormComponent"
+import { FormComponentModel } from "@/entities/form/models/form-component"
 import {
   ControllerRenderProps,
   FieldValues,

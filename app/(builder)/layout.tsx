@@ -1,6 +1,4 @@
 import { Toaster } from "@/components/ui/sonner";
-import { fontVariables } from "@/lib/fonts";
-import { cn } from "@/lib/utils";
 import ConvexClientProvider from "@/providers/ConvexClientProvider";
 import { Metadata } from "next";
 import "../globals.css";
@@ -77,13 +75,13 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-      <html lang="en" suppressHydrationWarning>
-        <body className={cn(fontVariables, "font-sans")}>
-          <ConvexClientProvider>
-              {children}
-                <Toaster position="top-center" />
-          </ConvexClientProvider>
-        </body>
-      </html>
+    <html lang="en" suppressHydrationWarning>
+      <body className="font-sans">
+        <ConvexClientProvider>
+          {children}
+          <Toaster position="top-center" />
+        </ConvexClientProvider>
+      </body>
+    </html>
   );
 }

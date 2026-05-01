@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSaveFormMutation } from "@/features/save-form/api/save-form";
 import { useUpdateFormMutation } from "@/features/save-form/api/update-form";
-import { useFormBuilderStore } from "@/stores/form-builder-store";
+import { useFormBuilderStore } from "@/shared/stores/form-builder-store";
 
 export function useSaveForm() {
   const [isSaving, setIsSaving] = useState(false);

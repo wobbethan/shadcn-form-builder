@@ -9,9 +9,9 @@ import {
   useSensor,
 } from "@dnd-kit/core";
 import { useMemo, useState } from "react";
-import { useFormBuilderStore } from "@/stores/form-builder-store";
+import { useFormBuilderStore } from "@/shared/stores/form-builder-store";
 import { getGridRows, updateColSpans } from "@/lib/utils";
-import { FormComponentModel } from "@/models/FormComponent";
+import { FormComponentModel } from "@/entities/form/models/form-component";
 
 interface DragItemData {
   action: "move" | "add";

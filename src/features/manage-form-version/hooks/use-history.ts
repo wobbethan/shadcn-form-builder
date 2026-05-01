@@ -1,4 +1,4 @@
-import { useFormBuilderStore } from "@/stores/form-builder-store";
+import { useFormBuilderStore } from "@/shared/stores/form-builder-store";
 
 /**
  * Undo/redo and snapshot navigation for the form builder.

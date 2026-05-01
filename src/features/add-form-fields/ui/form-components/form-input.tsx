@@ -1,14 +1,14 @@
 import { Input } from "@/components/ui/input";
 import { DesignPropertiesViews } from "@/types/form-builder.types";
-import { FormComponentModel } from "@/models/FormComponent";
-import { LabelGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/label-group";
-import { InputGroup as SidebarInputGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/input-group";
-import { GridGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/grid-group";
+import { FormComponentModel } from "@/entities/form/models/form-component";
+import { LabelGroup } from "../../../configure-form-fields/ui/groups/label-group";
+import { InputGroup as SidebarInputGroup } from "../../../configure-form-fields/ui/groups/input-group";
+import { GridGroup } from "../../../configure-form-fields/ui/groups/grid-group";
 import { cn } from "@/lib/utils";
-import { ValidationGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/validation-group";
+import { ValidationGroup } from "../../../configure-form-fields/ui/groups/validation-group";
 import { ControllerRenderProps } from "react-hook-form";
 import { UseFormReturn, FieldValues } from "react-hook-form";
-import { Icon } from "../../../../../temp-src/components/form-builder/helpers/icon-render";
+import { Icon } from "../../../../shared/lib/icon-render";
 import {
   InputGroupAddon,
   InputGroupInput,

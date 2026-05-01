@@ -1,16 +1,13 @@
 "use client";
 
-import { EditorToolbar } from "@/features/add-form-fields/ui/form-components/wysiwyg/editor-toolbar";
-import { ViewportToggler } from "@/features/change-viewport/ui/viewport-toggler";
-import { ExitPreviewButton } from "@/features/preview-form/ui/exit-preview-button";
-import { HistoryButton } from "@/features/manage-form-version/ui/history-button";
-import { PreviewButton } from "@/features/preview-form/ui/preview-button";
+import { EditorToolbar } from "@/features/add-form-fields";
+import { ViewportToggler } from "@/features/change-viewport";
+import { PreviewButton, ExitPreviewButton } from "@/features/preview-form";
 import { PublishFormButton } from "@/features/publish-form";
-import { RedoButton } from "@/features/manage-form-version/ui/redo-button";
-import { UndoButton } from "@/features/manage-form-version/ui/undo-button";
-import { cn } from "@/lib/utils";
-import { useFormBuilderStore } from "@/stores/form-builder-store";
+import { UndoButton, RedoButton, HistoryButton} from "@/features/manage-form-version";
+import { useFormBuilderStore } from "@/shared/stores/form-builder-store";
 import { FormBuilderMenubar } from "./form-builder-menubar";
+import { cn } from "@/lib/utils";
 
 export function FormBuilderHeader() {
   // Get state from store

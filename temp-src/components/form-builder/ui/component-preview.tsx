@@ -1,12 +1,11 @@
 "use client";
 
-import React from "react";
-import { useForm, Controller } from "react-hook-form";
-import { FormComponentModel } from "@/models/FormComponent";
-import { renderComponent } from "@/config/available-components";
-import { cn } from "@/lib/utils";
-import { Label } from "@/components/ui/label";
 import { Field } from "@/components/ui/field";
+import { Label } from "@/components/ui/label";
+import { renderComponent } from "@/shared/config/available-components";
+import { FormComponentModel } from "@/entities/form/models/form-component";
+import React from "react";
+import { Controller, useForm } from "react-hook-form";
 
 interface ComponentPreviewProps {
   component: FormComponentModel;

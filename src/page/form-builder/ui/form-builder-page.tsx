@@ -1,23 +1,20 @@
 "use client";
 
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { FieldsSidebar } from "@/features/add-form-fields/ui/fields-sidebar";
+import { cn } from "@/lib/utils";
+import { useFormBuilderDnd } from "@/page/form-builder/hooks/use-form-builder-dnd";
+import { useTemplateWelcome } from "@/page/form-builder/hooks/use-template-welcome";
+import { MobileNotification } from "@/page/form-builder/ui/mobile-notification";
+import { useIsMobile } from "@/shared/hooks/use-mobile";
+import { useFormBuilderStore } from "@/shared/stores/form-builder-store";
+import { MainCanvas } from "@/widgets/canvas/ui/main-canvas";
+import { FormBuilderHeader } from "@/widgets/form-builder-header/ui/form-builder-header";
 import {
   DndContext,
   DragOverlay,
 } from "@dnd-kit/core";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { FieldsSidebar } from "@/features/add-form-fields/ui/fields-sidebar";
-import { SidebarRight } from "@/components/form-builder/sidebar/sidebarRight";
-import { MainCanvas } from "@/components/form-builder/mainCanvas";
 import { Loader2 } from "lucide-react";
-import { FormBuilderHeader } from "@/widgets/form-builder-header/ui/form-builder-header";
-import { useFormBuilderStore } from "@/stores/form-builder-store";
-import { MobileNotification } from "@/page/form-builder/ui/mobile-notification";
-import { useIsMobile } from "@/hooks/use-mobile";
-import SocialLinks from "@/components/form-builder/sidebar/socialLinks";
-import { WelcomeDialog } from "@/page/form-builder/ui/welcome-dialog";
-import { cn } from "@/lib/utils";
-import { useTemplateWelcome } from "@/page/form-builder/hooks/use-template-welcome";
-import { useFormBuilderDnd } from "@/page/form-builder/hooks/use-form-builder-dnd";
 
 export function FormBuilderPage() {
   const isMobile = useIsMobile();

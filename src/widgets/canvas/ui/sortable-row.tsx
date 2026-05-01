@@ -9,10 +9,10 @@ import {
   getGridRows,
   updateColSpans,
 } from "@/lib/utils";
-import { RenderEditorComponent } from "../../../../temp-src/components/form-builder/helpers/render-editor-component";
-import { useFormBuilderStore } from "@/stores/form-builder-store";
+import { RenderEditorComponent } from "../../../shared/lib/render-editor-component";
+import { useFormBuilderStore } from "@/shared/stores/form-builder-store";
 import { Over, useDraggable, useDroppable } from "@dnd-kit/core";
-import { FormComponentModel } from "@/models/FormComponent";
+import { FormComponentModel } from "@/entities/form/models/form-component";
 import { memo, useCallback, useMemo } from "react";
 import * as Icons from "lucide-react";
 

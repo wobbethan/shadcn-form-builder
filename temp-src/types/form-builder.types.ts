@@ -1,4 +1,4 @@
-import { FormComponentModel } from "@/models/FormComponent";
+import { FormComponentModel } from "@/entities/form/models/form-component";
 import { Editor } from "@tiptap/react";
 import { icons } from "lucide-react";
 import { HTMLAttributes, HTMLInputTypeAttribute } from 'react';

@@ -1,6 +1,6 @@
 "use client";
 
-import GenerateCanvasGrid from "@/widgets/canvas/ui/generate-canvas-grid";
+import GenerateCanvasGrid from "@/shared/ui/generate-canvas-grid";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -24,8 +24,8 @@ import {
 import { useSaveForm } from "@/features/save-form/hooks/use-save-form";
 import { useSavedForms } from "@/features/save-form/hooks/use-saved-forms";
 import { cn } from "@/lib/utils";
-import { FormComponentModel } from "@/models/FormComponent";
-import { useFormBuilderStore } from "@/stores/form-builder-store";
+import { FormComponentModel } from "@/entities/form/models/form-component";
+import { useFormBuilderStore } from "@/shared/stores/form-builder-store";
 import {
   FileSearch,
   FileText,

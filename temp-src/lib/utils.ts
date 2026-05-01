@@ -1,6 +1,6 @@
 import { FormComponentStyles } from "@/types/FormComponent.types";
 import { Viewports } from "@/types/form-builder.types";
-import { FormComponentModel } from "@/models/FormComponent";
+import { FormComponentModel } from "@/entities/form/models/form-component";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 

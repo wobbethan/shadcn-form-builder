@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { DesignPropertiesViews } from "@/types/form-builder.types";
-import { FormComponentModel } from "@/models/FormComponent";
-import { GridGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/grid-group";
-import { ButtonGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/button-group";
+import { FormComponentModel } from "@/entities/form/models/form-component";
+import { GridGroup } from "../../../configure-form-fields/ui/groups/grid-group";
+import { ButtonGroup } from "../../../configure-form-fields/ui/groups/button-group";
 import { UseFormReturn, FieldValues, ControllerRenderProps } from "react-hook-form";
-import { Icon } from "../../../../../temp-src/components/form-builder/helpers/icon-render";
+import { Icon } from "../../../../shared/lib/icon-render";
 
 export function FormButton(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   const IconName = component.getField("properties.style.icon");

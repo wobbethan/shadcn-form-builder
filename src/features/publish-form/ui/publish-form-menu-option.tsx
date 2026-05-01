@@ -1,7 +1,7 @@
 "use client";
 
 import { MenubarItem } from "@/components/ui/menubar";
-import { useFormBuilderStore } from "@/stores/form-builder-store";
+import { useFormBuilderStore } from "@/shared/stores/form-builder-store";
 import { Send } from "lucide-react";
 
 export function PublishFormMenuOption() {

@@ -1,7 +1,7 @@
 "use client";
 
-import { AVAILABLE_COMPONENTS } from "@/config/available-components";
-import { useFormBuilderStore } from "@/stores/form-builder-store";
+import { AVAILABLE_COMPONENTS } from "@/shared/config/available-components";
+import { useFormBuilderStore } from "@/shared/stores/form-builder-store";
 
 import {
   Sidebar,

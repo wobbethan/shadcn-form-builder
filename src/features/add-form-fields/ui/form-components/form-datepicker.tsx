@@ -13,12 +13,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { DesignPropertiesViews } from "@/types/form-builder.types"
-import { GridGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/grid-group"
-import { LabelGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/label-group"
-import { InputGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/input-group"    
-import { FormComponentModel } from "@/models/FormComponent"
+import { GridGroup } from "../../../configure-form-fields/ui/groups/grid-group"
+import { LabelGroup } from "../../../configure-form-fields/ui/groups/label-group"
+import { InputGroup } from "../../../configure-form-fields/ui/groups/input-group"    
+import { FormComponentModel } from "@/entities/form/models/form-component"
 import { ControllerRenderProps, FieldValues, UseFormReturn } from "react-hook-form"
-import { ValidationGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/validation-group"
+import { ValidationGroup } from "../../../configure-form-fields/ui/groups/validation-group"
 
 export function FormDatePicker(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
 

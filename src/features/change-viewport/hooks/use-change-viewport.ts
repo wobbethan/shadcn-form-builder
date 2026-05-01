@@ -1,4 +1,4 @@
-import { useFormBuilderStore } from "@/stores/form-builder-store";
+import { useFormBuilderStore } from "@/shared/stores/form-builder-store";
 import { Monitor, Smartphone, Tablet } from "lucide-react";
 import { useMemo } from "react";
 

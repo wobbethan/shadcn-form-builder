@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormBuilderStore } from "@/stores/form-builder-store";
+import { useFormBuilderStore } from "@/shared/stores/form-builder-store";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 

@@ -7,14 +7,14 @@ import {
 } from "@/components/ui/select";
 import React from "react";
 import { DesignPropertiesViews } from "@/types/form-builder.types";
-import { FormComponentModel } from "@/models/FormComponent";
-import { GridGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/grid-group";
-import { LabelGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/label-group";
-import { InputGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/input-group";
-import { OptionsGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/options-group";
+import { FormComponentModel } from "@/entities/form/models/form-component";
+import { GridGroup } from "../../../configure-form-fields/ui/groups/grid-group";
+import { LabelGroup } from "../../../configure-form-fields/ui/groups/label-group";
+import { InputGroup } from "../../../configure-form-fields/ui/groups/input-group";
+import { OptionsGroup } from "../../../configure-form-fields/ui/groups/options-group";
 import { ControllerRenderProps } from "react-hook-form";
 import { UseFormReturn, FieldValues } from "react-hook-form";
-import { ValidationGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/validation-group";
+import { ValidationGroup } from "../../../configure-form-fields/ui/groups/validation-group";
 
 export function FormSelect(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   return (

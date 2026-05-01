@@ -1,59 +1,28 @@
 "use client";
 
-import { LoadFormDialog } from "@/components/form-builder/dialogs/load-form-dialog";
-import { SaveAsMenuOption } from "@/features/save-form/ui/save-as-menu-option";
-import { SaveMenuOption } from "@/features/save-form/ui/save-menu-option";
+import { OpenFormMenuOption } from "@/features/open-form";
+import { OpenTemplateMenuOption } from "@/features/open-template";
+import { ExitFormBuilderMenuOption } from "@/features/exit-form-builder";
+import { ViewportMenuOptions } from "@/features/change-viewport";
+import { SaveMenuOption, SaveAsMenuOption } from "@/features/save-form";
 import { PublishFormMenuOption } from "@/features/publish-form";
-import { PreviewMenuOption } from "@/features/preview-form/ui/preview-menu-option";
-import { RedoMenuOption } from "@/features/manage-form-version/ui/redo-menu-option";
-import { UndoMenuOption } from "@/features/manage-form-version/ui/undo-menu-option";
+import { PreviewMenuOption } from "@/features/preview-form";
+import { UndoMenuOption, RedoMenuOption } from "@/features/manage-form-version";
+import { DuplicateFormMenuOption } from "@/features/duplicate-form";
+import { ClearFormMenuOption } from "@/features/clear-form-menu-option";
 import {
   Menubar,
   MenubarContent,
-  MenubarItem,
   MenubarMenu,
   MenubarSeparator,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { useFormBuilderStore } from "@/stores/form-builder-store";
-import {
-  Copy,
-  FolderOpen,
-  LogOut,
-  Monitor,
-  Smartphone,
-  Tablet,
-  Trash2,
-} from "lucide-react";
-import { toast } from "sonner";
-import { LoadTemplateDialog } from "../../../../temp-src/components/form-builder/dialogs/load-template-dialog";
 
 interface FormBuilderMenubarProps {
   mode: "editor" | "preview" | "editor-preview";
 }
 
 export function FormBuilderMenubar({ mode }: FormBuilderMenubarProps) {
-  // Get state from store
-  const viewport = useFormBuilderStore((state) => state.viewport);
-  const selectedComponent = useFormBuilderStore(
-    (state) => state.selectedComponent
-  );
-  const components = useFormBuilderStore((state) => state.components);
-  // Get actions from store
-  const {
-    updateViewport,
-    duplicateComponent,
-    clearForm,
-  } = useFormBuilderStore();
-
-  // Duplicate component handler
-  const handleDuplicate = () => {
-    if (selectedComponent) {
-      duplicateComponent(selectedComponent.id);
-      toast.success("Component duplicated successfully!");
-    }
-  };
-
   // Only render if in editor or preview mode
   if (mode !== "editor" && mode !== "preview") {
     return null;
@@ -64,28 +33,15 @@ export function FormBuilderMenubar({ mode }: FormBuilderMenubarProps) {
       <MenubarMenu>
         <MenubarTrigger className="gap-2">File</MenubarTrigger>
         <MenubarContent align="start" className="w-48">
-          <LoadFormDialog>
-            <MenubarItem onSelect={(e) => e.preventDefault()}>
-              <FolderOpen className="h-4 w-4" />
-              Open
-            </MenubarItem>
-          </LoadFormDialog>
-          <LoadTemplateDialog>
-            <MenubarItem onSelect={(e) => e.preventDefault()}>
-              <FolderOpen className="h-4 w-4" />
-              Open Template
-            </MenubarItem>
-          </LoadTemplateDialog>
+          <OpenFormMenuOption />
+          <OpenTemplateMenuOption />
           <MenubarSeparator />
           <SaveMenuOption />
           <SaveAsMenuOption />
           <MenubarSeparator />
           <PublishFormMenuOption />
           <MenubarSeparator />
-          <MenubarItem onClick={() => (window.location.href = "/")}>
-            <LogOut className="h-4 w-4" />
-            Exit
-          </MenubarItem>
+          <ExitFormBuilderMenuOption />
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
@@ -94,44 +50,15 @@ export function FormBuilderMenubar({ mode }: FormBuilderMenubarProps) {
           <UndoMenuOption />
           <RedoMenuOption />
           <MenubarSeparator />
-          <MenubarItem onClick={handleDuplicate} disabled={!selectedComponent}>
-            <Copy className="h-4 w-4" />
-            Duplicate
-          </MenubarItem>
+          <DuplicateFormMenuOption />
           <MenubarSeparator />
-          <MenubarItem onClick={clearForm} disabled={components.length === 0}>
-            <Trash2 className="h-4 w-4" />
-            Clear Form
-          </MenubarItem>
+          <ClearFormMenuOption />
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
         <MenubarTrigger className="gap-2">View</MenubarTrigger>
         <MenubarContent align="start" className="w-48">
-          <MenubarItem
-            onClick={() => updateViewport("sm")}
-            className={viewport === "sm" ? "bg-accent" : ""}
-          >
-            <Smartphone className="h-4 w-4" />
-            Mobile
-            {viewport === "sm" && <span className="ml-auto text-xs">✓</span>}
-          </MenubarItem>
-          <MenubarItem
-            onClick={() => updateViewport("md")}
-            className={viewport === "md" ? "bg-accent" : ""}
-          >
-            <Tablet className="h-4 w-4" />
-            Tablet
-            {viewport === "md" && <span className="ml-auto text-xs">✓</span>}
-          </MenubarItem>
-          <MenubarItem
-            onClick={() => updateViewport("lg")}
-            className={viewport === "lg" ? "bg-accent" : ""}
-          >
-            <Monitor className="h-4 w-4" />
-            Desktop
-            {viewport === "lg" && <span className="ml-auto text-xs">✓</span>}
-          </MenubarItem>
+          <ViewportMenuOptions />
           <MenubarSeparator />
           <PreviewMenuOption />
         </MenubarContent>

@@ -14,7 +14,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import "./form-wysiwyg-editor.css";
 import { EditorToolbar } from "./editor-toolbar";
 import customClass from "./extensions/textCustomStyle";
-import { useFormBuilderStore } from "@/stores/form-builder-store";
+import { useFormBuilderStore } from "@/shared/stores/form-builder-store";
 interface FormWysiwygEditorProps {
   isEditable?: boolean;
   value: string;

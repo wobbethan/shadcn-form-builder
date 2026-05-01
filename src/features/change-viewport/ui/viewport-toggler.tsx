@@ -1,6 +1,6 @@
 "use client";
 
-import { ToggleGroupNav } from "@/components/form-builder/ui/toggle-group-nav";
+import { ToggleGroupNav } from "@/shared/ui/toggle-group-nav";
 import { useChangeViewport } from "../hooks/use-change-viewport";
 
 export function ViewportToggler() {

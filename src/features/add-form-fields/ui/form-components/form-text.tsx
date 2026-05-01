@@ -3,8 +3,8 @@ import {
   generateTWClassesForAllViewports,
 } from "@/lib/utils";
 import { DesignPropertiesViews } from "@/types/form-builder.types";
-import { FormComponentModel } from "@/models/FormComponent";
-import { GridGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/grid-group";
+import { FormComponentModel } from "@/entities/form/models/form-component";
+import { GridGroup } from "../../../configure-form-fields/ui/groups/grid-group";
 import { UseFormReturn, FieldValues, ControllerRenderProps } from "react-hook-form";
 
 export function Text(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {

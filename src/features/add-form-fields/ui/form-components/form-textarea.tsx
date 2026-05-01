@@ -1,12 +1,12 @@
 import { Textarea } from "@/components/ui/textarea";
 import { DesignPropertiesViews } from "@/types/form-builder.types";
-import { FormComponentModel } from "@/models/FormComponent";
-import { InputGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/input-group";
-import { GridGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/grid-group";
-import { LabelGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/label-group";
+import { FormComponentModel } from "@/entities/form/models/form-component";
+import { InputGroup } from "../../../configure-form-fields/ui/groups/input-group";
+import { GridGroup } from "../../../configure-form-fields/ui/groups/grid-group";
+import { LabelGroup } from "../../../configure-form-fields/ui/groups/label-group";
 import { ControllerRenderProps } from "react-hook-form";
 import { UseFormReturn, FieldValues } from "react-hook-form";
-import { ValidationGroup } from "../../../../../temp-src/components/form-builder/sidebar/groups/validation-group";
+import { ValidationGroup } from "../../../configure-form-fields/ui/groups/validation-group";
 
 export function FormTextarea(component: FormComponentModel, form: UseFormReturn<FieldValues, undefined>, field: ControllerRenderProps) {
   return (

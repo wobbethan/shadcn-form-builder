@@ -1,6 +1,6 @@
 "use client";
 
-import { useFormBuilderStore } from "@/stores/form-builder-store";
+import { useFormBuilderStore } from "@/shared/stores/form-builder-store";
 
 /**
  * Shared preview mode actions and state for header/menubar controls.
